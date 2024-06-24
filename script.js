@@ -22,9 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const order = {
             date: new Date().toISOString(),
-            client: document.getElementById('client').value,
-            details: document.getElementById('details').value,
-            price: document.getElementById('price').value
+            clientName: document.getElementById('clientName').value,
+            phoneNumber: document.getElementById('phoneNumber').value,
+            orderDetails: document.getElementById('orderDetails').value,
+            cost: document.getElementById('cost').value,
+            paymentStatus: document.getElementById('paymentStatus').value,
+            paymentMethod: document.getElementById('paymentMethod').value
         };
         addOrder(order);
         this.reset();
@@ -52,15 +55,27 @@ function loadOrders() {
 
 function displayOrders(orders) {
     const orderList = document.getElementById('orderList');
-    let html = '<table><tr><th>Data</th><th>Client</th><th>Detalii</th><th>Preț</th></tr>';
+    let html = `<table>
+        <tr>
+            <th>Data</th>
+            <th>Client</th>
+            <th>Telefon</th>
+            <th>Detalii</th>
+            <th>Cost</th>
+            <th>Status Plată</th>
+            <th>Metodă Plată</th>
+        </tr>`;
     
     for (let key in orders) {
         const order = orders[key];
         html += `<tr>
             <td>${new Date(order.date).toLocaleString()}</td>
-            <td>${order.client}</td>
-            <td>${order.details}</td>
-            <td>${order.price}</td>
+            <td>${order.clientName}</td>
+            <td>${order.phoneNumber}</td>
+            <td>${order.orderDetails}</td>
+            <td>${order.cost} RON</td>
+            <td>${order.paymentStatus}</td>
+            <td>${order.paymentMethod}</td>
         </tr>`;
     }
     
