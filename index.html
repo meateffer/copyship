@@ -6,7 +6,7 @@
     <title>Copyshop Orders</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        input, button { margin: 5px 0; padding: 5px; }
+        input, select, button { margin: 5px 0; padding: 5px; width: 100%; box-sizing: border-box; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
@@ -15,16 +15,25 @@
 <body>
     <h1>Sistem Comenzi Copyshop</h1>
     <form id="orderForm">
-        <input type="text" id="client" placeholder="Nume Client" required>
-        <input type="text" id="details" placeholder="Detalii Comandă" required>
-        <input type="number" id="price" placeholder="Preț" required>
+        <input type="text" id="clientName" placeholder="Nume Client" required>
+        <input type="tel" id="phoneNumber" placeholder="Număr de Telefon" required>
+        <textarea id="orderDetails" placeholder="Detalii Comandă" required></textarea>
+        <input type="number" id="cost" placeholder="Cost" required>
+        <select id="paymentStatus" required>
+            <option value="">Selectează status plată</option>
+            <option value="platit">Plătit</option>
+            <option value="neplatit">Neplătit</option>
+        </select>
+        <select id="paymentMethod" required>
+            <option value="">Selectează metoda de plată</option>
+            <option value="factura">Factură</option>
+            <option value="bon">Bon</option>
+        </select>
         <button type="submit">Adaugă Comandă</button>
     </form>
     <div id="orderList"></div>
 
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
