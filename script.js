@@ -9,17 +9,23 @@ const firebaseConfig = {
   appId: "1:685394039842:web:b53504809c81bb6988a67b"
 };
 
+console.log('Script starting');
+
 // Inițializează Firebase
 firebase.initializeApp(firebaseConfig);
 
 // Referință către baza de date
 const database = firebase.database();
 
-document.addEventListener('DOMContentLoaded', function() {
+function initApp() {
+    console.log('Initializing app');
     const orderForm = document.getElementById('orderForm');
+    console.log('orderForm found:', !!orderForm);
+
     if (orderForm) {
         orderForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Form submitted');
             const order = {
                 date: new Date().toISOString(),
                 clientName: document.getElementById('clientName')?.value || '',
@@ -29,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 paymentStatus: document.getElementById('paymentStatus')?.value || '',
                 paymentMethod: document.getElementById('paymentMethod')?.value || ''
             };
+            console.log('Order data:', order);
             addOrder(order);
             this.reset();
         });
@@ -37,28 +44,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     loadOrders();
-});
+}
 
 function addOrder(order) {
+    console.log('Adding order:', order);
     database.ref('orders').push(order)
         .then(() => {
             console.log('Order added successfully');
         })
         .catch((error) => {
-            console.error('Error adding order: ', error);
+            console.error('Error adding order:', error);
         });
 }
 
 function loadOrders() {
+    console.log('Loading orders');
     database.ref('orders').on('value', (snapshot) => {
         const orders = snapshot.val();
+        console.log('Orders loaded:', orders);
         displayOrders(orders);
     }, (error) => {
-        console.error('Error loading orders: ', error);
+        console.error('Error loading orders:', error);
     });
 }
 
 function displayOrders(orders) {
+    console.log('Displaying orders');
     const orderList = document.getElementById('orderList');
     if (!orderList) {
         console.error('Order list element not found');
@@ -91,4 +102,8 @@ function displayOrders(orders) {
     
     html += '</table>';
     orderList.innerHTML = html;
+    console.log('Orders displayed');
 }
+
+document.addEventListener('DOMContentLoaded', initApp);
+console.log('Script loaded');
