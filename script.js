@@ -81,24 +81,40 @@ function displayOrders(orders) {
             <th>Cost</th>
             <th>Status Plată</th>
             <th>Metodă Plată</th>
+            <th>Acțiuni</th>
         </tr>`;
     
     for (let key in orders) {
         const order = orders[key];
         html += `<tr>
             <td>${formatDate(order.date)}</td>
-            <td>${order.addedBy}</td>
+            <td>${order.addedBy || 'Necunoscut'}</td>
             <td>${order.clientName}</td>
             <td>${order.phoneNumber}</td>
             <td>${order.orderDetails}</td>
             <td>${order.cost} RON</td>
             <td>${order.paymentStatus}</td>
             <td>${order.paymentMethod}</td>
+            <td>
+                ${order.paymentStatus === 'neplatit' ? 
+                    `<button onclick="updatePaymentStatus('${key}', 'platit')">Marchează ca plătit</button>` : 
+                    'Plătit'}
+            </td>
         </tr>`;
     }
     
     html += '</table>';
     orderList.innerHTML = html;
+}
+
+function updatePaymentStatus(orderKey, newStatus) {
+    database.ref('orders/' + orderKey).update({
+        paymentStatus: newStatus
+    }).then(() => {
+        console.log('Payment status updated successfully');
+    }).catch((error) => {
+        console.error('Error updating payment status:', error);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
