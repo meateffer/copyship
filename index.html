@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copyshop Orders</title>
     <style>
-        /* Stilurile tale existente aici */
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        input, select, button, textarea { margin: 5px 0; padding: 5px; width: 100%; box-sizing: border-box; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
     </style>
 </head>
 <body>
     <h1>Sistem Comenzi Copyshop</h1>
     <form id="orderForm">
+        <select id="addedBy" required>
+            <option value="">Selectează utilizatorul</option>
+            <option value="Andrei">Andrei</option>
+            <option value="Maria">Maria</option>
+            <option value="Cezar">Cezar</option>
+        </select>
         <input type="text" id="clientName" placeholder="Nume Client" required>
         <input type="tel" id="phoneNumber" placeholder="Număr de Telefon" required>
         <textarea id="orderDetails" placeholder="Detalii Comandă" required></textarea>
@@ -31,13 +41,6 @@
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script>
-        // Adaugă acest cod pentru debugging
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM fully loaded');
-            console.log('orderForm exists:', !!document.getElementById('orderForm'));
-        });
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
