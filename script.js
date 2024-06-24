@@ -8,10 +8,6 @@ const firebaseConfig = {
   messagingSenderId: "685394039842",
   appId: "1:685394039842:web:b53504809c81bb6988a67b"
 };
-// Configurația Firebase (înlocuiește cu detaliile tale de la Firebase)
-const firebaseConfig = {
-    // Adaugă aici configurația ta Firebase
-};
 
 // Inițializează Firebase
 firebase.initializeApp(firebaseConfig);
