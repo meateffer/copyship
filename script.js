@@ -8,6 +8,10 @@ const firebaseConfig = {
   messagingSenderId: "685394039842",
   appId: "1:685394039842:web:b53504809c81bb6988a67b"
 };
+// Configurația Firebase (înlocuiește cu detaliile tale de la Firebase)
+const firebaseConfig = {
+    // Adaugă aici configurația ta Firebase
+};
 
 // Inițializează Firebase
 firebase.initializeApp(firebaseConfig);
@@ -16,22 +20,27 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 document.addEventListener('DOMContentLoaded', function() {
-    loadOrders();
+    const orderForm = document.getElementById('orderForm');
+    if (orderForm) {
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const order = {
+                date: new Date().toISOString(),
+                clientName: document.getElementById('clientName')?.value || '',
+                phoneNumber: document.getElementById('phoneNumber')?.value || '',
+                orderDetails: document.getElementById('orderDetails')?.value || '',
+                cost: document.getElementById('cost')?.value || '',
+                paymentStatus: document.getElementById('paymentStatus')?.value || '',
+                paymentMethod: document.getElementById('paymentMethod')?.value || ''
+            };
+            addOrder(order);
+            this.reset();
+        });
+    } else {
+        console.error('Order form not found');
+    }
 
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const order = {
-            date: new Date().toISOString(),
-            clientName: document.getElementById('clientName').value,
-            phoneNumber: document.getElementById('phoneNumber').value,
-            orderDetails: document.getElementById('orderDetails').value,
-            cost: document.getElementById('cost').value,
-            paymentStatus: document.getElementById('paymentStatus').value,
-            paymentMethod: document.getElementById('paymentMethod').value
-        };
-        addOrder(order);
-        this.reset();
-    });
+    loadOrders();
 });
 
 function addOrder(order) {
@@ -55,6 +64,11 @@ function loadOrders() {
 
 function displayOrders(orders) {
     const orderList = document.getElementById('orderList');
+    if (!orderList) {
+        console.error('Order list element not found');
+        return;
+    }
+
     let html = `<table>
         <tr>
             <th>Data</th>
