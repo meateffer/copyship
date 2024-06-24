@@ -1,12 +1,12 @@
 // Configurația Firebase (înlocuiește cu detaliile tale de la Firebase)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDtHNk2IdYbw4pkjyKqcGORPAfJFE7p5qw",
+  authDomain: "copyshop-b3085.firebaseapp.com",
+  databaseURL: "https://copyshop-b3085-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "copyshop-b3085",
+  storageBucket: "copyshop-b3085.appspot.com",
+  messagingSenderId: "685394039842",
+  appId: "1:685394039842:web:b53504809c81bb6988a67b"
 };
 
 // Inițializează Firebase
