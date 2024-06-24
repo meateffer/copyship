@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copyshop Orders</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        input, select, button { margin: 5px 0; padding: 5px; width: 100%; box-sizing: border-box; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
+        /* Stilurile tale existente aici */
     </style>
 </head>
 <body>
@@ -35,6 +31,13 @@
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script>
+        // Adaugă acest cod pentru debugging
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+            console.log('orderForm exists:', !!document.getElementById('orderForm'));
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
