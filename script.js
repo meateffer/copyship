@@ -9,8 +9,6 @@ const firebaseConfig = {
   appId: "1:685394039842:web:b53504809c81bb6988a67b"
 };
 
-console.log('Script starting');
-
 // Inițializează Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -18,24 +16,20 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 function initApp() {
-    console.log('Initializing app');
     const orderForm = document.getElementById('orderForm');
-    console.log('orderForm found:', !!orderForm);
-
     if (orderForm) {
         orderForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            console.log('Form submitted');
             const order = {
                 date: new Date().toISOString(),
-                clientName: document.getElementById('clientName')?.value || '',
-                phoneNumber: document.getElementById('phoneNumber')?.value || '',
-                orderDetails: document.getElementById('orderDetails')?.value || '',
-                cost: document.getElementById('cost')?.value || '',
-                paymentStatus: document.getElementById('paymentStatus')?.value || '',
-                paymentMethod: document.getElementById('paymentMethod')?.value || ''
+                addedBy: document.getElementById('addedBy').value,
+                clientName: document.getElementById('clientName').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                orderDetails: document.getElementById('orderDetails').value,
+                cost: document.getElementById('cost').value,
+                paymentStatus: document.getElementById('paymentStatus').value,
+                paymentMethod: document.getElementById('paymentMethod').value
             };
-            console.log('Order data:', order);
             addOrder(order);
             this.reset();
         });
@@ -47,7 +41,6 @@ function initApp() {
 }
 
 function addOrder(order) {
-    console.log('Adding order:', order);
     database.ref('orders').push(order)
         .then(() => {
             console.log('Order added successfully');
@@ -58,18 +51,20 @@ function addOrder(order) {
 }
 
 function loadOrders() {
-    console.log('Loading orders');
     database.ref('orders').on('value', (snapshot) => {
         const orders = snapshot.val();
-        console.log('Orders loaded:', orders);
         displayOrders(orders);
     }, (error) => {
         console.error('Error loading orders:', error);
     });
 }
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+}
+
 function displayOrders(orders) {
-    console.log('Displaying orders');
     const orderList = document.getElementById('orderList');
     if (!orderList) {
         console.error('Order list element not found');
@@ -79,6 +74,7 @@ function displayOrders(orders) {
     let html = `<table>
         <tr>
             <th>Data</th>
+            <th>Adăugat de</th>
             <th>Client</th>
             <th>Telefon</th>
             <th>Detalii</th>
@@ -90,7 +86,8 @@ function displayOrders(orders) {
     for (let key in orders) {
         const order = orders[key];
         html += `<tr>
-            <td>${new Date(order.date).toLocaleString()}</td>
+            <td>${formatDate(order.date)}</td>
+            <td>${order.addedBy}</td>
             <td>${order.clientName}</td>
             <td>${order.phoneNumber}</td>
             <td>${order.orderDetails}</td>
@@ -102,8 +99,6 @@ function displayOrders(orders) {
     
     html += '</table>';
     orderList.innerHTML = html;
-    console.log('Orders displayed');
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
-console.log('Script loaded');
